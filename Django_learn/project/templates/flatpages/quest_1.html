@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> {% extends 'flatpages/default.html' %}
+ 
+    {% block title %}
+    {{ flatpage.title }}
+    {% endblock title %}
+</title>
+</head>
+<body>
+     
+    {% block content %}
+        <h1></h1>
+        <h2>{{ flatpage.title }}</h2>
+    {{ flatpage.content }}
+    {% endblock content %}
+</body>
+</html>
