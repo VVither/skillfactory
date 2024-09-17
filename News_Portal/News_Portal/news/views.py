@@ -6,6 +6,7 @@ def news_list(request):
     posts = Post.objects.all().order_by('-created_at')  # Сортировка от новых к старым
     return render(request, 'news/news_list.html', {
         'posts': posts,
+        'post_count': posts.count(), # Колличество новостей
         'year': datetime.now().year # Текущий год
     })
 

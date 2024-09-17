@@ -3,14 +3,20 @@
 {% block title %}Новости{% endblock %}
 
 {% block content %}
-<h2>Новости</h2>
-{% for post in posts %}
-    <article>
-        <h3><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h3>  <!-- Ссылка на детальную страницу поста -->
-        <p>{{ post.content|truncatewords:30 }}</p>
-        <p><a href="{% url 'post_detail' post.id %}">Читать далее</a></p>   
-    </article>
-{% empty %}
-    <p>Нет новостей.</p>
-{% endfor %}
+    <h2>Новости</h2>
+    </p>Всего новостей: {{post_count }}</p>
+    <ul>
+    {% for post in posts %}
+        <article>
+            <h3><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h3>  <!-- Ссылка на детальную страницу поста -->
+            <p><strong>Дата публикации:</strong> {{ post.created_at|date:"d.m.Y" }}</p>  <!-- Дата -->
+            <p>{{ post.preview|truncatewords:20 }}...</p>  <!-- Певые 20 символов содержимого или 30 символов-->
+            {% if post.content|length > 30 %}
+                <p><a href="{% url 'post_detail' post.id %}">Читать далее</a></p>  
+            {% endif %} 
+        </article>
+    {% empty %}
+        <p>Нет новостей.</p>
+    {% endfor %}
+    <ul>
 {% endblock %}
