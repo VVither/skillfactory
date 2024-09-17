@@ -1,0 +1,60 @@
+Создаём пользователей
+>>> from django.contrib.auth.models import User  
+>>> user1 = User.objects.create_user('first_user')
+>>> user2 = User.objects.create_user('second_user') 
+
+Создаём авторов от пользователей
+>>> from news.models import Author  
+>>> author1 = Author.objects.create(user=user1)
+>>> author2 = Author.objects.create(user=user2)
+
+Создаём категории
+>>> from news.models import Category                   
+>>> category1 = Category.objects.create(name='Sport') 
+>>> category2 = Category.objects.create(name='incident') 
+>>> category3 = Category.objects.create(name='Celebrities') 
+>>> category4 = Category.objects.create(name='Cook')  
+
+Клепаем посты
+>>> from news.models import Post   
+>>> Post1 = Post.objects.create(author=author1, post_type='Новость', title='Новости спорта', content='Россия снова не попала в финал чемпионата Европы по футболу') 
+>>> Post2 = Post.objects.create(author=author2, post_type='Статья', title='Первая статья', content='Я это сделал, это моя первая статья на этом сайте')             
+>>> Post3 = Post.objects.create(author=author1, post_type='Статья', title='Каждый охотник желает знать', content='Где сидит фазан')       
+>>> Post4 = Post.objects.create(author=author2, post_type='Новость', title='Эти охотники уже', content='Знают что фазан сидит в кутузке')
+
+Присваиваем постам категории
+>>> Post1.categories.add(category1, category2) 
+>>> Post2.categories.add(category2)            
+>>> Post3.categories.add(category3, category4) 
+>>> Post4.categories.add(category2)            
+>>> exit()
+
+Штампуем комменты
+>>> Comment1 = Comment.objects.create(post=post1, user=user2, text='Я первый') 
+>>> Comment2 = Comment.objects.create(post=post2, user=user1, text='Он это сделал!!!') 
+>>> Comment3 = Comment.objects.create(post=post3, user=user1, text='А фазанчики то сидят') 
+>>> Comment4 = Comment.objects.create(post=post4, user=user1, text='Я это уже писал')   
+
+Изменяем рейтинг постов
+>>> Post.like(post1)                                                                 
+>>> Post.like(post2) 
+>>> Post.dislike(post3) 
+>>> Post.dislike(post4) 
+>>> Post.like(post1)    
+>>> Post.like(post1)
+>>> Post.like(post3) 
+>>> Post.like(post3) 
+>>> Post.like(post1) 
+
+Лайкаем комменты
+>>> Comment.like(Comment1) 
+>>> Comment.like(Comment1)
+>>> Comment.like(Comment2) 
+>>> Comment.like(Comment3) 
+>>> Comment.like(Comment1) 
+>>> Comment.like(Comment1) 
+>>> Comment.dislike(Comment3) 
+>>> Comment.dislike(Comment4) 
+>>> Comment.dislike(Comment4) 
+>>> Comment.dislike(Comment2) 
+

@@ -1,0 +1,12 @@
+{% extends "default.html" %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+    <article>
+        <h2>{{ post.title }}</h2>
+        <p><strong>Опубликовано:</strong> {{ post.published_date|date:"d M Y" }}</p>
+        <p>{{ post.content }}</p>
+        <a href="{% url 'news_list' %}">Назад к новостям</a>
+    </article>
+{% endblock %}
