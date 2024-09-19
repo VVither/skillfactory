@@ -34,8 +34,8 @@ class NewsDetailView(DetailView):
     
 class SearchResultsView(ListView):
     model = Post
-    template_name = 'news/search_results.html'
-    context_object_name = 'posts'
+    template_name = 'news/search_result.html'
+    context_object_name = 'post'
     
     def get_queryset(self):
         queryset = Post.objects.all()

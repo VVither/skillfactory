@@ -2,7 +2,7 @@
 
 {% block content %}
   <h1>Поиск новостей</h1>
-  <form method="get" action="{% url 'search_results' %}">
+  <form method="get" action="{% url 'search_result' %}">
       {{ filter.form.as_p }}
       <button type="submit">Поиск</button>
   </form>

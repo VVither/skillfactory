@@ -11,7 +11,7 @@
         <article>
             <h3><a href="{% url 'post_detail' post.id %}">{{ post.title|censor }}</a></h3>  <!-- Ссылка на детальную страницу поста -->
             <p><strong>Дата публикации:</strong> {{ post.created_at|date:"d.m.Y" }}</p>  <!-- Дата -->
-            <p>{{ post.preview|truncatewords:20|censor }}...</p>  <!-- Певые 20 символов содержимого или 30 символов-->
+            <p>{{ post.preview|truncatewords:20|censor }}...</p>  <!-- Первые 20 символов содержимого или 30 символов-->
             {% if post.content|length > 30 %}
                 <p><a href="{% url 'post_detail' post.id %}">Читать далее</a></p>  
             {% endif %} 

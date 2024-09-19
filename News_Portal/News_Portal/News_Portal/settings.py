@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'news', # приложение с модулем новостей
     'django.contrib.sites',
     'django.contrib.flatpages',
-    'django_filters',
+    'django_filters', # Приложение с фильтрами
 ]
 
 SITE_ID = 1
