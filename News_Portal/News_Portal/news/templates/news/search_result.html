@@ -1,0 +1,20 @@
+{% extends 'default.html' %}
+
+{% block content %}
+  <h1>Поиск новостей</h1>
+  <form method="get" action="{% url 'search_results' %}">
+      {{ filter.form.as_p }}
+      <button type="submit">Поиск</button>
+  </form>
+
+  <h2>Результаты поиска:</h2>
+  <ul>
+      {% for post in posts %}
+          <li>
+              <a href="{% url 'post_detail' post.id %}">{{ post.title }}</a> - {{ post.created_at }}
+          </li>
+      {% empty %}
+          <li>Нет результатов для данного запроса.</li>
+      {% endfor %}
+  </ul>
+{% endblock %}
