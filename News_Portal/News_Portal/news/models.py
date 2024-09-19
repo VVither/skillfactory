@@ -77,4 +77,8 @@ class Comment(models.Model):
     def __str__(self):
         return f'Comment by {self.user.username} on {self.post.title}'
 
+class BadWord(models.Model):
+    word = models.CharField(max_length=255)
 
+    def __str__(self):
+        return self.word

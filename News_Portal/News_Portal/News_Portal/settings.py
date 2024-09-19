@@ -128,6 +128,3 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# Список нежелательных слов
-BAD_WORDS = 'бля, блять, ужастно, плохо'

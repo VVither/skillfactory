@@ -1,15 +1,14 @@
 from django import template
-from News_Portal import settings
+from news.models import BadWord
 
 register = template.Library()
 
 @register.filter(name='censor')
 def censor(value):
       """ Заменяет буквы в нежелательных слов в строке на '*' """
-      # Получаем список нежелательных слов из настроек
-      bad_words_list = [word.strip().lower() for word in settings.BAD_WORDS.split(',')]
+      bad_words = BadWord.objects.values_list('word', flat=True)
       
-      for word in bad_words_list:
+      for word in bad_words:
          value = value.replace(word, '*' * len(word))
       
       return value
