@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, DetailView
+from django_filters.views import FilterView
 from .models import Post
 from django.utils import timezone
 from django.http import Http404
@@ -32,12 +33,13 @@ class NewsDetailView(DetailView):
     #       raise Http404('Новость не найдена.')
         return post
     
-class SearchResultsView(ListView):
+    # представление для поиска
+class SearchlistView(FilterView, ListView):
     model = Post
     template_name = 'news/search_result.html'
-    context_object_name = 'post'
+    filterset_class = PostFilter
+    context_object_name = 'posts'
     
     def get_queryset(self):
-        queryset = Post.objects.all()
-        self.filterset = PostFilter(self.request.GET, queryset=queryset)
-        return self.filterset.qs  # Возвращаем отфильтрованный queryset
+        queryset = super().get_queryset()
+        return queryset  # Возвращаем отфильтрованный queryset

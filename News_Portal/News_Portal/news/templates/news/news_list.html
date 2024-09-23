@@ -6,7 +6,7 @@
 {% block content %}
     <h2>Новости</h2>
     </p>Всего новостей: {{post_count }}</p>
-    <ul>
+
     {% for post in posts %}
         <article>
             <h3><a href="{% url 'post_detail' post.id %}">{{ post.title|censor }}</a></h3>  <!-- Ссылка на детальную страницу поста -->
@@ -20,4 +20,23 @@
         <p>Нет новостей.</p>
     {% endfor %}
     <ul>
-{% endblock %}
+    {# Добавляем прогинацию на страницу #}
+    {# Информация о предыдущей странице #}
+    {% if page_obj.has_previous %}
+        <a href='?page=1' >1</a>
+        {% if page_obj.has_previous_page_number != 1%}
+            ...
+            <a href="?page={{ page_obj.has_previous_page_number }}"> {{ page_obj.has_previous_page_number}} </a>
+        {%  endif %}
+    {% endif %}
+    {# Информация о текущей странице #}
+    {{ page_obj.number }}
+    {#Информация о текущей следующей странице #}
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+    {% if paginator.num_pages != page_obj.next_page_number %}
+        ...
+        <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+    {% endif %}
+{% endif %}
+{% endblock content%}
