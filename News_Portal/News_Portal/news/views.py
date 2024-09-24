@@ -1,10 +1,9 @@
 from django.shortcuts import get_object_or_404
-from django.views.generic import ListView, DetailView
-from django_filters.views import FilterView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from .models import Post
 from django.utils import timezone
-from django.http import Http404
 from .filters import PostFilter
+from django.shortcuts import render
 
 class NewsListView(ListView):
     model = Post
@@ -34,12 +33,12 @@ class NewsDetailView(DetailView):
         return post
     
     # представление для поиска
-class SearchlistView(FilterView, ListView):
-    model = Post
-    template_name = 'news/search_result.html'
-    filterset_class = PostFilter
-    context_object_name = 'posts'
-    
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        return queryset  # Возвращаем отфильтрованный queryset
+def search_posts(request):
+    f = PostFilter(request.GET, queryset=Post.objects.all())
+    return render(request, 'news/search_result.html', {'filter': f})
+
+class PostCreate(CreateView):
+    pass
+
+class UpdateView(UpdateView):
+    pass

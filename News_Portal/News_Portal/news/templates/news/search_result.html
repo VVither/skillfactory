@@ -1,22 +1,19 @@
 {% extends 'default.html' %}
 
 {% block content %}
-  <h1>Поиск новостей</h1>
-    <nav>
-        <!-- Форма поиска -->
-        <form method="get">  <!-- Форма для фильтрации -->
-            {{ filter.form.as_p }}
-            <button type="submit">Поиск</button>
-        </form>
-    </nav>
-  <h2>Результаты поиска:</h2>
-  <ul>
-      {% for post in posts %}
-          <li>
-              <a href="{% url 'post_detail' post.id %}">{{ post.title }}</a> - {{ post.created_at }}
-          </li>
-      {% empty %}
-          <li>Нет результатов для данного запроса.</li>
-      {% endfor %}
-  </ul>
+    <h1>Результаты поиска</h1>
+    <form action="{% url 'news:search' %}" method="get">
+        <input type="text" name="title" placeholder="Поиск по названию...">
+        <input type="text" name="author" placeholder="Поиск по автору...">
+        <input type="date" name="created_at" placeholder="Дата публикации...">
+        <button type="submit">Поиск</button>
+    </form>
+    <h2>Результаты поиска</h2>
+    <ul>
+        {% for post in filter.qs %}
+            <li>{{ post.title }} - {{ post.author.username }} ({{ post.created_at }})</li>
+        {% empty %}
+            <li>Нет результатов.</li>
+        {% endfor %}
+    </ul>
 {% endblock %}

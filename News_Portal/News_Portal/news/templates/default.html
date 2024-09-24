@@ -10,8 +10,16 @@
         <h1>Мой веб-сайт</h1>
         <nav>
             <ul>
-                <li><a href="{% url 'news_list' %}">Новости</a></li>
+                {% block nav_links %}
+                <li><a href="{% url 'news:news_list' %}">Главная страница</a></li>
                 <!-- Другие ссылки -->
+                 {% endblock %}
+            </ul>
+            <ul>
+                <form method="get">
+                    <input type="text" name="q" placeholder="Поиск постов..." required>
+                    <button type="submit">Поиск</button>
+                </form>
             </ul>
         </nav>
     </header>
