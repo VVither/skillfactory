@@ -4,6 +4,7 @@ from .models import Post
 from django.utils import timezone
 from .filters import PostFilter
 from django.shortcuts import render
+from .forms import PostForm
 
 class NewsListView(ListView):
     model = Post
@@ -38,7 +39,9 @@ def search_posts(request):
     return render(request, 'news/search_result.html', {'filter': f})
 
 class PostCreate(CreateView):
-    pass
+    form_class = PostForm
+    model = Post
+    template_name = 'news/post_edit.html'
 
 class UpdateView(UpdateView):
     pass

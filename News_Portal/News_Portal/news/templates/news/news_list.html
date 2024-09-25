@@ -17,6 +17,8 @@
         <button type="submit">Поиск</button>
     </form>
 
+    <a href="{% url 'news:post_create' %}">Добавить новость</a>
+    
     {% for post in posts %}
         <article>
             <h3><a href="{% url 'news:post_detail' post.id %}">{{ post.title|censor }}</a></h3>  <!-- Ссылка на детальную страницу поста -->
